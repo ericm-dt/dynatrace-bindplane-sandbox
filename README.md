@@ -8,23 +8,27 @@ This repo uses Terraform to create and manage:
 - A Bindplane telemetry pipeline that ships to a Dynatrace tenant; both the cloud configurations as well as the K8s resources (agents, configurations, etc)
 - The OpenTelemetry Demo, configured to export to the Bindplane pipleline.
 
-## High-level oveview
+## Prerequisites
+
+Cloud:
+  - AWS account with perms to create an EKS cluster and associated roles.
+  - A Bindplane Cloud account with an API key
+  - A Dynatrace environment with an API token scoped for:
+    - `openTelemetryTrace.ingest`
+    - `metrics.ingest`
+    - `logs.ingest`
+   
+Local:
+  - Terraform `>= 1.5`
+  - AWS CLI configured (`aws configure`)
+  - kubectl (to deploy Bindplane manifests)
+
+## High-level flow
 1. Create the hyperscaler resources (K8 cluster)
 2. Create the Bindplate cloud configuration
 3. Download the agent configuration (K8s manifest) from Bindplane and apply it to the cluster
 4. Deploy the Otel demo to the cluster
 5. Do all kinds of fun and create stuff to your telemetry data in Bindplane!
-
-## Prerequisites
-
-- Terraform `>= 1.5`
-- AWS CLI configured (`aws configure`)
-- kubectl (to deploy Bindplane manifests)
-- A Bindplane Cloud account with an API key
-- A Dynatrace environment with an API token scoped for:
-  - `openTelemetryTrace.ingest`
-  - `metrics.ingest`
-  - `logs.ingest`
 
 ## 1. Configure Terraform Backend
 
